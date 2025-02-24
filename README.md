@@ -3,7 +3,6 @@
 This repository contains everything you need to set up a complete media server stack with Docker Compose, including Sonarr, Radarr, Prowlarr, Jellyfin, and more.
 
 ![mediaserver_icon-Photoroom](https://github.com/user-attachments/assets/7aee94c1-91b4-47a6-a91e-5184ac1683f3)
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -17,6 +16,9 @@ This repository contains everything you need to set up a complete media server s
   - [Jellyfin](#jellyfin)
   - [Jellyseerr](#jellyseerr)
   - [Wizarr](#wizarr)
+- [Remote Access Setup](#remote-access-setup)
+  - [Tailscale VPN Configuration](#tailscale-vpn-configuration)
+  - [User Onboarding Process](#user-onboarding-process)
 - [Directory Structure](#directory-structure)
 - [Troubleshooting](#troubleshooting)
 - [Useful Links](#useful-links)
@@ -33,12 +35,6 @@ This stack provides a complete media automation solution:
 - 🗣️ **Bazarr**: Subtitle management and download
 - 🎞️ **Jellyseerr**: Request system for Jellyfin
 - 👥 **Wizarr**: Invitation and user management for Jellyfin
-
-## ⚙️ Requirements
-
-- Docker and Docker Compose installed
-- Linux environment (tested on Ubuntu)
-- Sufficient storage space for media files
 
 ## 🛠️ Service Configuration
 
@@ -200,6 +196,59 @@ This stack provides a complete media automation solution:
    - Default permissions
    - Invitation expiry time
 
+## 🌐 Remote Access Setup
+
+### Tailscale VPN Configuration
+
+Tailscale provides a secure and easy way to share your media server with friends and family without exposing your server to the public internet.
+
+1. **Install Tailscale on your server:**
+   ```bash
+   curl -fsSL https://tailscale.com/install.sh | sh
+   ```
+
+2. **Authenticate and start Tailscale:**
+   ```bash
+   sudo tailscale up
+   ```
+   
+### User Onboarding Process
+
+Once your Tailscale network is set up, you can invite users to access your media server:
+
+1. **Invite users to your Tailscale network:**
+   - Log in to the Tailscale admin console
+   - Generate invite links for your users
+   - Send the invite links to your friends and family
+   - Guide them through installing Tailscale on their devices(https://tailscale.com/download)
+
+2. **Create Jellyfin/Jellyseerr accounts using Wizarr:**
+   - Access Wizarr at `http://<your-tailscale-ip>:5690`
+   - Go to **Invitations → Create New Invitation**
+   - Configure the invitation settings:
+     - Set permission levels (what libraries they can access)
+     - Set expiration time for the invitation
+     - Enable/disable Jellyseerr integration
+   - Click "Create Invitation"
+   - Copy the generated invitation link
+   - Send the invitation link to your users
+
+3. **User Registration Process:**
+   - Users will click the Wizarr invitation link
+   - They'll create their Jellyfin account through the Wizarr interface
+   - If enabled, a Jellyseerr account will also be created
+   - The accounts will be automatically configured with the permissions you specified
+
+4. **Accessing the Media Server:**
+   - Users can access Jellyfin at `http://<your-tailscale-ip>:8096`
+   - Users can access Jellyseerr at `http://<your-tailscale-ip>:5055`
+   - They log in with the credentials they created through the Wizarr invitation
+
+5. **Security Tips:**
+   - Consider creating separate Jellyfin libraries for different user groups
+   - Use Jellyfin's user policy settings to limit bandwidth for remote users if needed
+   - Monitor Tailscale access logs periodically
+
 ## 📂 Directory Structure
 
 The stack uses the following directory structure:
@@ -228,31 +277,18 @@ The stack uses the following directory structure:
 └── Downloads/
 ```
 
-## ❓ Troubleshooting
-
-### Common Issues:
-
-1. **Permission Issues**
-   - Ensure proper permissions: `sudo chown -R 1000:1000 /media/Arr`
-   - Check the PUID and PGID in your .env file
-
-2. **Port Conflicts**
-   - If a port is already in use, either stop the conflicting service or change the port in docker-compose.yml
-
-3. **Container Won't Start**
-   - Check logs: `sudo docker logs <container-name>`
-   - Ensure sufficient disk space and resources
-
-4. **Network Connectivity Issues**
-   - Use IP addresses instead of localhost for inter-container communication
-   - Verify your Docker network settings
-
 ## 🔗 Useful Links
 
 - [Servarr Wiki](https://wiki.servarr.com/)
 - [Trash Guides](https://trash-guides.info/)
 - [Jellyfin Documentation](https://jellyfin.org/docs/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [Tailscale Documentation](https://tailscale.com/kb/)
+- [Wizarr Documentation](https://docs.wizarr.dev/)
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🤝 Acknowledgements
 
