@@ -20,7 +20,6 @@ This repository contains everything you need to set up a complete media server s
   - [Tailscale VPN Configuration](#tailscale-vpn-configuration)
   - [User Onboarding Process](#user-onboarding-process)
 - [Directory Structure](#directory-structure)
-- [Troubleshooting](#troubleshooting)
 - [Useful Links](#useful-links)
 
 ## 🔍 Overview
