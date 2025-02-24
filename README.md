@@ -3,6 +3,7 @@
 This repository contains everything you need to set up a complete media server stack with Docker Compose, including Sonarr, Radarr, Prowlarr, Jellyfin, and more.
 
 ![Arr Stack Banner](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver-ls-logo.png)
+![mediaserver_icon-Photoroom](https://github.com/user-attachments/assets/7aee94c1-91b4-47a6-a91e-5184ac1683f3)
 
 ## 📋 Table of Contents
 
