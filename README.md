@@ -285,10 +285,6 @@ The stack uses the following directory structure:
 - [Tailscale Documentation](https://tailscale.com/kb/)
 - [Wizarr Documentation](https://docs.wizarr.dev/)
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🤝 Acknowledgements
 
 - The incredible [LinuxServer.io](https://linuxserver.io/) team for maintaining many of these container images
