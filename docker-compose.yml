@@ -172,3 +172,31 @@ services:
       - ${ARRPATH}Sonarr/tvshows:/data/tvshows
     restart: unless-stopped
 
+
+
+   ____                                          
+  / __ \                                         
+ | |  | |_   _____ _ __ ___  ___  ___ _ __ _ __  
+ | |  | \ \ / / _ \ '__/ __|/ _ \/ _ \ '__| '__| 
+ | |__| |\ V /  __/ |  \__ \  __/  __/ |  | |    
+  \____/  \_/ \___|_|  |___/\___|\___|_|  |_|   
+
+
+    overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    depends_on:
+      - jellyfin
+      - radarr
+      - sonarr
+    ports:
+      - 5056:5055   # Host 5056 → Container 5055
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Skopje
+    volumes:
+      - ${ARRPATH}Overseerr/config:/config
+      - ${ARRPATH}Downloads:/downloads
+    restart: unless-stopped
+
